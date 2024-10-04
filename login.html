@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <link rel="icon" href="principal/images/logo DecentralConnect.png" type="image/png">
+    <title>FralisHub</title>
+</head>
+<body>
+    <!-- Título no topo -->
+    <div class="title">
+        <h1>FralisHub</h1>
+    </div>
+
+    <!-- Logo -->
+    <div class="logo">
+        <div class="sunny-text">
+            <p class="gradient-text">Experience Total Freedom: 100% Decentralized Digital Community Hub!</p>
+            <p class="gradient-text">Come be free</p>
+        </div>
+        <img src="principal/images/logo_DecentralConnect.png_1717852433612-removebg-preview.png" alt="Logo Sunny">
+    </div>
+    
+    <!-- Botão para conectar MetaMask -->
+    <div class="button-container">
+        <button class="button" onclick="start()">
+            <img src="principal/images/metamusk1.png" alt="Seta">
+            Connect MetaMask
+        </button>
+    </div>
+
+    <!-- Importando as bibliotecas necessárias -->
+    <script src="https://unpkg.com/web3@1.5.3/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script type="text/javascript">
+        // Função principal de conexão
+        async function start() {
+            console.log("Iniciando conexão com MetaMask...");
+            let provider = null;
+
+            // Verificação se o MetaMask está disponível
+            if (typeof window.ethereum !== 'undefined' || typeof window.web3 !== 'undefined') {
+                console.log("MetaMask detectado!");
+
+                try {
+                    // MetaMask injecta o provider no objeto window.ethereum ou window.web3.currentProvider
+                    provider = window.ethereum || window.web3.currentProvider;
+                    
+                    // Detecta se está no MetaMask Mobile
+                    const isMetaMaskMobile = window.ethereum && window.ethereum.isMetaMask && window.ethereum.isMetaMaskMobile;
+
+                    if (!isMetaMaskMobile) {
+                        // Se não for MetaMask Mobile, solicitamos a conexão das contas
+                        await provider.request({ method: 'eth_requestAccounts' });
+                        console.log("Conexão com a carteira MetaMask estabelecida");
+                    }
+
+                    // Criação da instância do Web3
+                    const web3 = new Web3(provider);
+                    console.log("Instância do Web3 criada:", web3);
+
+                    // Obtém o endereço da carteira conectada
+                    const accounts = await web3.eth.getAccounts();
+                    const walletAddress = accounts[0];
+                    console.log("Endereço da carteira conectado:", walletAddress);
+
+                    // Verifica se o endereço da carteira foi obtido
+                    if (!walletAddress) {
+                        console.error("Erro: Nenhuma carteira conectada!");
+                        return;
+                    }
+
+                    // Envia uma solicitação para verificar o endereço da carteira no servidor
+                    try {
+                        console.log("Enviando solicitação ao servidor para verificar a carteira:", walletAddress);
+                        const response = await axios.get('https://apifralishub.online/check-wallet', {
+                            params: { walletAddress: walletAddress }
+                        });
+
+                        const data = response.data;
+
+                        if (data.redirectTo) {
+                            console.log("Redirecionando para:", data.redirectTo);
+                            window.location.href = data.redirectTo;
+                        } else {
+                            console.log('Nenhum redirecionamento definido no servidor.');
+                        }
+                    } catch (error) {
+                        if (error.response) {
+                            console.error('Erro ao verificar o endereço da carteira no servidor:', error.response.status, error.response.data);
+                        } else if (error.request) {
+                            console.error('Erro de rede ou sem resposta do servidor:', error.request);
+                        } else {
+                            console.error('Erro ao verificar o endereço da carteira:', error.message);
+                        }
+                    }
+
+                    // Adiciona um ouvinte para o evento de desconexão
+                    provider.on('disconnect', () => {
+                        console.log('MetaMask foi desconectado.');
+                    });
+
+                } catch (e) {
+                    console.error("Erro ao conectar com a MetaMask:", e);
+                }
+            } else {
+                alert("MetaMask não detectado. Por favor, instale o MetaMask ou use o navegador interno do MetaMask Mobile.");
+            }
+        }
+    </script>
+</body>
+</html>

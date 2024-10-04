@@ -1,0 +1,2084 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+html, body {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  background-color: #fff; /* Cor de fundo padrão */
+  color: #000; /* Cor padrão do texto */
+  transition: background-color 0.5s ease, color 0.5s ease; /* Transição para cor de fundo e texto */
+}
+
+body {
+  background-image: linear-gradient(to bottom right, #fff, #3498db); /* Gradiente de fundo padrão */
+}
+
+body.dark-mode {
+  color: #fff; /* Cor do texto para o modo escuro */
+  background-color: #333; /* Cor de fundo para o modo escuro */
+  background-image: none; /* Remover gradiente no modo escuro */
+}
+
+
+::selection{
+  color: #fff;
+  background: #1cc7d0;
+}
+.following,
+.followers {
+  margin-top: 10px; /* Adiciona uma margem superior */
+  padding: 10px; /* Adiciona espaçamento interno */
+  border-radius: 5px; /* Borda arredondada */
+  background-color: #f0f0f0; /* Cor de fundo */
+  text-align: center; /* Alinha o texto ao centro */
+}
+.right-aligned {
+  float: left;
+}
+.mini-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  padding: 20px;
+  width: 80%; /* Largura do mini-box */
+  max-width: 600px; /* Largura máxima do mini-box */
+  height: 80%; /* Altura do mini-box */
+  max-height: 400px; /* Altura máxima do mini-box */
+  overflow: auto; /* Adiciona uma barra de rolagem se o conteúdo for muito grande */
+  z-index: 9999; /* Garante que o mini-box seja exibido acima de outros elementos */
+  display: none; /* Inicialmente oculto */
+
+}
+
+.user-container {
+  display: flex;
+  align-items: center;
+}
+
+.user-container .image-perfil2 {
+  margin-right: 10px; /* Espaçamento entre a imagem e o nome */
+}
+/* Estilo para o container de usuário */
+.user-container_followers {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc; /* Adiciona uma borda inferior */
+}
+
+/* Estilo para a imagem de perfil */
+.user-container_followers .perfil-image {
+  margin-right: 10px; /* Espaçamento entre a imagem e o nome */
+}
+/* Estilizando o botão "X" */
+#close-button {
+  border: none;
+  border-radius: 60%; /* Torna o botão redondo */
+  color: #ffffff; /* Cor do texto branca, você pode ajustar conforme necessário */
+  cursor: pointer;
+  font-size: 12px; /* Ajuste conforme necessário */
+  margin-left: 65px; /* Adiciona um espaço entre o input e o botão, ajuste conforme necessário */
+  padding: 6px 10px; /* Ajuste conforme necessário para o tamanho do botão */
+  color: rgb(115, 197, 235); /* Cor da letra */
+  background-color: grey; /* Cor de fundo do botão */
+  border: none; /* Removendo a borda do botão */
+  cursor: pointer; /* Alterando o cursor ao passar sobre o botão */
+}
+
+#close-button2 {
+  border: none;
+  border-radius: 60%; /* Torna o botão redondo */
+  color: #ffffff; /* Cor do texto branca, você pode ajustar conforme necessário */
+  cursor: pointer;
+  font-size: 12px; /* Ajuste conforme necessário */
+  margin-left: 65px; /* Adiciona um espaço entre o input e o botão, ajuste conforme necessário */
+  padding: 6px 10px; /* Ajuste conforme necessário para o tamanho do botão */
+  color: rgb(115, 197, 235); /* Cor da letra */
+  background-color: grey; /* Cor de fundo do botão */
+  border: none; /* Removendo a borda do botão */
+  cursor: pointer; /* Alterando o cursor ao passar sobre o botão */
+}
+
+
+
+
+/* Estilo para o nome do usuário */
+.user-container_followers .user-name_followers {
+  flex-grow: 1; /* Ocupa o restante do espaço disponível */
+  margin-right: 10px; /* Espaçamento entre o nome e a carteira */
+}
+
+/* Estilo para a carteira do usuário */
+.user-container_followers .user-wallet_followers {
+  font-size: 10px; /* Define o tamanho da fonte */
+  color: #888; /* Define a cor do texto */
+}
+
+
+
+#search-input {
+  width: 200px; /* largura desejada */
+  height: 30px; /* altura desejada */
+  padding: 5px; /* espaçamento interno */
+  border: 1px solid #ccc; /* borda com cor cinza claro */
+  border-radius: 5px; /* borda arredondada */
+  font-size: 16px; /* tamanho da fonte */
+  outline: none; /* remove o contorno ao focar */
+}
+
+#search-input::placeholder {
+  color: #aaa; /* cor do texto de espaço reservado */
+}
+
+#search-input:focus {
+  border-color: #007bff; /* cor da borda ao focar */
+}
+
+
+
+#search-input2 {
+  width: 180px; /* largura desejada */
+  height: 30px; /* altura desejada */
+  padding: 5px; /* espaçamento interno */
+  border: 1px solid #ccc; /* borda com cor cinza claro */
+  border-radius: 5px; /* borda arredondada */
+  font-size: 16px; /* tamanho da fonte */
+  outline: none; /* remove o contorno ao focar */
+}
+
+#search-input2::placeholder {
+  color: #aaa; /* cor do texto de espaço reservado */
+}
+
+#search-input2:focus {
+  border-color: #007bff; /* cor da borda ao focar */
+}
+
+
+.wrapper {
+  height: 350px; /* Reduz a altura do card para 350px */
+  width: 280px; /* Reduz a largura do card para 280px */
+  position: fixed; /* Altera para position: fixed */
+  top: 30px; /* Define a distância fixa do topo da tela */
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translateX(-50%); /* Centraliza horizontalmente */
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  z-index: 999; /* Define a ordem de empilhamento */
+  overflow-y: auto; /* Adiciona uma barra de rolagem vertical se necessário */
+  max-height: calc(100vh - 30px); /* Define a altura máxima para a visibilidade dos posts */
+}
+
+
+.wrapper .card {
+  position: absolute;
+  height: 70%; /* Reduz a altura para 70% */
+  width: 70%; /* Reduz a largura para 70% */
+  padding: 5px;
+  background: #fff;
+  border-radius: 10px;
+  transform: translateY(0deg);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+/* Estilos para as divs "following" e "followers" */
+.following,
+.followers {
+  margin-top: 10px; /* Adiciona uma margem superior */
+  background-color: #f0f0f0; /* Cor de fundo */
+  padding: 10px; /* Espaçamento interno */
+  border-radius: 5px; /* Borda arredondada */
+  text-align: center; /* Alinhamento do texto */
+}
+
+.timeline-container2 {
+  overflow-y: auto; /* Adiciona uma barra de rolagem vertical se necessário */
+  max-height: 500px; /* Define a altura máxima para a visibilidade dos posts */
+}
+
+
+.wrapper:hover > .front-face{
+  transform: rotateY(-180deg);
+}
+.wrapper .card img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.wrapper .back-face{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  transform: rotateY(180deg);
+}
+.wrapper:hover > .back-face{
+  transform: rotateY(0deg);
+}
+.wrapper .back-face img{
+  height: 150px;
+  width: 150px;
+  padding: 5px;
+  border-radius: 50%;
+  background: linear-gradient(375deg, #1cc7d0, #2ede98);
+}
+.wrapper .back-face .info{
+  text-align: center;
+}
+.back-face .info .title{
+  font-size: 30px;
+  font-weight: 500;
+}
+.back-face ul{
+  display: flex;
+}
+.back-face ul a{
+  display: block;
+  height: 40px;
+  width: 40px;
+  color: #fff;
+  text-align: center;
+  margin: 0 5px;
+  line-height: 38px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background: linear-gradient(375deg, #1cc7d0, #2ede98);
+  transition: all 0.5s ease;
+}
+.back-face ul a:hover{
+  color: #1cc7d0;
+  border-color: #1cc7d0;
+  background: linear-gradient(375deg, transparent, transparent);
+}
+
+/*button return*/
+#return-button {
+  position: absolute;
+  top: 10px; /* Ajuste a posição vertical conforme necessário */
+  right: 10px; /* Ajuste a posição horizontal conforme necessário */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  width: 80px; /* Ajuste a largura para 150px */
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#return {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+#return-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(375deg, #1cc7d0, #2ede98);
+  z-index: -1;
+}
+
+/* Estilos para os posts na timeline */
+hr {
+  border: none;
+  border-top: 1px solid rgb(189, 179, 179);
+  margin: 10px 15px;
+}
+.media-container {
+  margin-top: 10px; /* Adicione margem apenas à div image-post */
+}
+
+/* Estilos compartilhados para publicações e comentários */
+.perfil-information,
+.comment-information {
+  display: flex;
+  padding: 15px;
+  align-items: center;
+}
+
+.perfil-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.author-post,
+.author-comment {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+#followButton,
+#commentFollowButton {
+  margin-left: 15px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 25px;
+  background-color: rgb(33, 35, 41);
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+}
+
+
+
+/*minibox donatio */
+/* Oculta o minibox inicialmente */
+.hidden {
+  display: none;
+}
+
+/* Estilização do minibox */
+#minibox {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white; /* Fundo branco */
+  max-width: 300px;
+  margin: 0 auto; /* Centraliza horizontalmente */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centraliza verticalmente */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
+  z-index: 1000; /* Garante que fique acima de outros elementos */
+}
+
+#maticAmount {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#submitMaticButton {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #1cc7d0; /* Fundo azul */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#submitMaticButton:hover {
+  background-color: #17a2b8;
+}
+.dark-mode #followButton1 {
+  margin-left: 15px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 25px;
+  background-color: rgb(50, 72, 146);
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+}
+#followButton1 {
+  margin-left: 15px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 25px;
+  background-color: rgb(50, 72, 146);
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+}
+.author-post span:not(:last-child),
+.author-comment span:not(:last-child) {
+  margin-right: 2px;
+  color: #090809;
+}
+
+.author-post i,
+.author-comment i {
+  font-size: px; /* Certifique-se de definir o tamanho desejado */
+  color: #706062;
+  margin-top: 5px;
+}
+
+.icons-post,
+.icons-comment {
+  margin-left: auto;
+}
+
+.text-post span {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #050404;
+}
+.text-post span {
+  display: block; /* Garantir que o span se comporte como bloco para que as quebras de linha funcionem */
+  width: 60ch; /* Limitar a largura a 50 caracteres */
+  word-wrap: break-word; /* Permitir que as palavras sejam quebradas se não couberem na linha */
+  white-space: pre-wrap; /* Preservar espaços em branco e permitir quebras de linha */
+}
+
+.reactions {
+  margin: 10px 0;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+}
+
+.reaction-count {
+  display: flex;
+  align-items: center;
+}
+
+.reactions span {
+  margin-left: 20px;
+  color: #65666a;
+}
+
+/* Estilos específicos para publicações */
+.publication {
+  background: #fff;
+  border-radius: 10px;
+  margin-bottom: 170px;
+ 
+
+}
+
+
+
+/* Estilo para o modo escuro */
+.dark-mode .publication {
+  background-color: #333;
+  color: #fff; /* Texto branco no modo escuro */
+}
+
+
+.dark-mode .wrapper .card {
+  position: absolute;
+  height: 70%; /* Reduz a altura para 70% */
+  width: 70%; /* Reduz a largura para 70% */
+  padding: 5px;
+  background: #5c5b5b;
+  border-radius: 10px;
+  transform: translateY(0deg);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+/* Estilos para as divs "following" e "followers" */
+.dark-mode .following,
+.dark-mode .followers {
+  margin-top: 10px; /* Adiciona uma margem superior */
+  background-color: #333; /* Cor de fundo */
+  padding: 10px; /* Espaçamento interno */
+  border-radius: 5px; /* Borda arredondada */
+  text-align: center; /* Alinhamento do texto */
+}
+
+
+.like-comment-share {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos para os botões 'like', 'comment' e 'share' */
+.like-comment-share .button,
+.like-comment-share .comment,
+.like-comment-share .share-button {
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+  margin-right: 5px; /* Ajuste o espaçamento entre os botões */
+  padding-right: 5px; /* Ajuste o espaçamento interno */
+  border-right: 1px solid #ccc; /* Adiciona uma borda à direita */
+}
+
+.like-comment-share .button:last-child,
+.like-comment-share .comment:last-child,
+.like-comment-share .share-button:last-child {
+  margin-right: 0; /* Remove o espaçamento do último botão */
+  padding-right: 0; /* Remove o espaçamento interno do último botão */
+  border-right: none; /* Remove a borda do último botão */
+}
+
+.dark-mode .heart-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid #e1f2fd;
+  border-radius: 5px;
+  color: #fdfdfd;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  position: relative;
+  width: 200px; /* Ajuste a largura conforme necessário */
+  padding: 10px 20px; /* Ajuste o padding comum */
+}
+.heart-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  color: #fdfdfd;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  position: relative;
+  width: 200px; /* Ajuste a largura conforme necessário */
+  padding: 10px 20px; /* Ajuste o padding comum */
+  margin-right: 200px; /* Ajuste o valor conforme necessário para mover para a direita */
+}
+
+
+.heart-btn .icon {
+  width: 35px; /* Defina o tamanho desejado para a imagem */
+  height: auto; /* Mantém a proporção da imagem */
+  /* Deixe a posição absoluta e ajuste o valor conforme necessário */
+  position: absolute;
+  left: 5px;
+}
+
+.heart-btn .text {
+  white-space: nowrap;
+  /* Ajuste o padding conforme necessário */
+  padding-left: 60px; /* Ajuste o valor específico */
+  font-weight: bold; /* Adiciona negrito apenas ao texto */
+  color: black; /* Altere a cor do texto para preto */
+}
+
+
+.dark-mode .heart-btn:hover {
+  background-color: #5c5b5b;
+  color: white;
+}
+.heart-btn:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+.heart-btn.clicked {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+
+/* share CSS */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+.share-button {
+  width: 200px; /* Largura do botão */
+  height: 40px; /* Altura do botão */
+  padding: 10px; /* Espaçamento interno */
+  border-radius: 5px; /* Borda arredondada */
+  background-color: #f0f0f0; /* Cor de fundo */
+  text-align: center; /* Alinha o texto ao centro */
+  border: 2px solid #3498db; /* Borda sólida */
+  cursor: pointer; /* Cursor ao passar por cima */
+  font-size: 16px; /* Tamanho da fonte */
+  margin-left: 5px; /* Margem à esquerda */
+  transition: .3s linear; /* Transição suave */
+  display: flex; /* Use flexbox para centralizar verticalmente */
+  align-items: center; /* Centralize verticalmente */
+  justify-content: center; /* Centralize horizontalmente */
+  line-height: 40px; /* Igual à altura do botão para centralizar verticalmente */
+}
+.new-share-button {
+  width: 150px; /* Ajuste conforme necessário */
+  height: 40px;
+  background: #fff;
+  border: 2px solid #3498db;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: .3s linear;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 1px;
+  margin-left: 5px;
+
+}
+
+.dark-mode .share-button {
+  width: 200px; /* Ajuste conforme necessário */
+  height: 40px;
+  background: #333;
+  border: 2px solid #e1f2fd;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: .3s linear;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 1px;
+  margin-left: 5px;
+}
+.share-button img {
+  width: 20px; /* Largura da imagem */
+  margin-right: 10px; /* Espaçamento entre a imagem e o texto */
+}
+
+
+.share-button:hover {
+  transform: scale(1.1);
+}
+
+.dark-mode .share-button span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 50px); /* Largura total menos a largura da imagem e o espaço */
+  height: 100%;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  line-height: 40px;
+  z-index: 1;
+  transition: .6s linear;
+  border-radius: 10px;
+  margin-right: 30px; /* Ajuste a margem esquerda conforme necessário */
+}
+
+/*comment*/
+
+
+.dark-mode
+.botao-comment {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid #e1f2fd;
+  border-radius: 5px;
+  color: #e1f2fd;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  margin-left: -1px !important; /* Ajuste o valor negativo para mover mais para a direita */
+  margin-top: 1px; /* Ajuste o valor conforme necessário para mover para baixo */
+}
+
+
+.botao-comment {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  color: #3498db;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  margin-left: -200px !important; /* Ajuste o valor negativo para mover mais para a direita */
+  margin-top: 1px; /* Ajuste o valor conforme necessário para mover para baixo */
+}
+
+.botao-comment:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.dark-mode
+.donate {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid #e1f2fd;
+  border-radius: 5px;
+  color: #e1f2fd;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  margin-left: -1px !important; /* Ajuste o valor negativo para mover mais para a direita */
+  margin-top: 1px; /* Ajuste o valor conforme necessário para mover para baixo */
+}
+
+
+.donate {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  color: #3498db;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  margin-left: -120px; /* Ajuste o valor negativo para mover mais para a direita */
+  margin-top: 1px; /* Ajuste o valor conforme necessário para mover para baixo */
+}
+
+.donate:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+/*buttom back*/
+
+#backButtonContainer {
+  display: none;
+  position: absolute; /* Torna a posição absoluta em relação ao contêiner pai */
+  top: 25px; /* Ajusta a distância do topo conforme necessário */
+  left: 320px; /* Ajusta a distância da esquerda conforme necessário */
+}
+
+#backButton {
+  color: #fff; /* Cor do texto do botão */
+  padding: 5px; /* Reduza o padding para que o botão abranja apenas a imagem */
+  border: none; /* Sem borda */
+  border-radius: 80%; /* Borda arredondada para criar um botão redondo */
+  cursor: pointer; /* Altera o cursor ao passar por cima */
+  background: none; /* Remove o fundo do botão */
+  text-align: center; /* Centraliza o conteúdo dentro do botão */
+  transition: background 0.3s ease; /* Adiciona uma transição suave para a mudança de cor do fundo */
+}
+
+#backButton img {
+  width: 20px; /* Aumenta a largura da imagem de seta */
+  height: 20px; /* Aumenta a altura da imagem de seta */
+}
+
+.back-button-text {
+  font-weight: normal; /* Define o peso da fonte de volta ao normal */
+  font-size: 20px; /* Ajusta o tamanho da fonte */
+  margin-left: 10px; /* Ajusta a margem à esquerda do nome "Post" */
+  transition: font-weight 0.3s ease, font-size 0.3s ease, margin-left 0.3s ease; /* Adiciona uma transição suave */
+}
+
+#backButton:hover {
+  background: #ddd; /* Cor de fundo cinza no hover */
+}
+
+#backButton:hover .back-button-text {
+  font-weight: bold; /* Negrito para a palavra "Post" no hover */
+  margin-left: 12px; /* Ajusta a margem à esquerda no hover */
+}
+
+#comment-container.comment-container.with-video.post {
+  background: #db5e5e;
+}
+
+
+.media-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  text-align: center;
+  height: 100%; /* Altere para altura máxima */
+  overflow: hidden; /* Esconda o conteúdo que excede a altura máxima */
+}
+
+.media-preview {
+  max-width: 100%; /* Adicione para preencher o espaço horizontal */
+  max-height: 100%; /* Altere para 100% para caber no contêiner */
+  object-fit: contain; /* Mantenha a proporção e ajuste o conteúdo */
+  display: none;
+}
+
+/* Exiba a mídia quando um arquivo for selecionado */
+.media-preview[src] {
+  display: block;
+}
+/* Modo escuro para hr */
+.dark-mode .post hr,
+.dark-mode .comment-container.with-video hr {
+  border-top: 0.5px solid #666; /* Cor do hr para o modo escuro */
+}
+.post,
+.comment-container.with-video {
+  position: relative;
+  border-radius: 10px;
+  background: #fff;
+  margin: 15px 0;
+}
+.post hr,
+.comment-container.with-video hr {
+  border: none;
+  border-top: 0.5px solid rgb(107, 105, 105);
+  margin-left: 20px;
+  margin-right: 20px;
+}
+/* Modo escuro */
+.dark-mode .post,
+.dark-mode .comment-container.with-video {
+  background: #5c5b5b; /* Cor de fundo para o modo escuro */
+  color: #fff; /* Cor do texto para o modo escuro */
+}
+
+.dark-mode #followButton,
+#commentFollowButton {
+  margin-left: 15px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 25px;
+  background-color: rgb(33, 35, 41);
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.texto,
+.comment-container.with-video .texto {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.dark-mode #post-input,
+.dark-mode #comment-input {
+  flex-grow: 60;
+  border-radius: 10px;
+  background: #5c5b5b;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  outline: 0;
+  resize: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  display: block;
+  line-height: 1.5;
+  height: 20px; /* Altura inicial */
+  min-height: 10px; /* Altura mínima */
+  max-height: 330px; /* Altura máxima permitida */
+  overflow-y: hidden; /* Remover a barra de rolagem vertical */
+  overflow-x: hidden; /* Remover a barra de rolagem horizontal */
+  transition: height 0.3s, padding 0.3s; /* Adicione uma transição suave */
+}
+#post-input,
+#comment-input {
+  flex-grow: 60;
+  border-radius: 10px;
+  background: #f1f2f4;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  outline: 0;
+  resize: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  display: block;
+  line-height: 1.5;
+  height: 20px; /* Altura inicial */
+  min-height: 10px; /* Altura mínima */
+  max-height: 330px; /* Altura máxima permitida */
+  overflow-y: hidden; /* Remover a barra de rolagem vertical */
+  overflow-x: hidden; /* Remover a barra de rolagem horizontal */
+  transition: height 0.3s, padding 0.3s; /* Adicione uma transição suave */
+}
+
+#post-input::placeholder,
+#comment-input::placeholder {
+  color: #ccc;
+}
+.custom-icon {
+  color: #e6f4f8; /* Cor do ícone */
+  font-size: 40px; /* Tamanho do ícone */
+  margin-right: 8px; /* Margem à direita para espaçamento */
+}
+
+
+.texto img,
+.comment-container.with-video .texto img {
+  width: 40px;
+  height: 40px; /* Certifique-se de definir a altura igual à largura */
+  border-radius: 50%;
+  margin: 20px;
+}
+.botones-texto {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centralizar horizontalmente */
+}
+
+.texto {
+  flex-grow: 1;
+}
+
+.dark-mode #envia-button {
+  width: 30%;
+  height: 30%;
+  
+  border: none;
+  border-radius: 25px;
+  background-color: rgb(104, 106, 112);
+
+  color: white; /* Cor do texto */
+  padding: 10px 20px; /* Espaçamento interno */
+  cursor: pointer;
+  margin-left: 60px; /* Margem à esquerda */
+}
+#envia-button {
+  width: 30%;
+  height: 30%;
+  
+  border: none;
+  border-radius: 25px;
+  background-color: rgb(76, 111, 224);
+
+  color: white; /* Cor do texto */
+  padding: 10px 20px; /* Espaçamento interno */
+  cursor: pointer;
+  margin-left: 60px; /* Margem à esquerda */
+}
+
+#envia-button:hover {
+  background: #0066cc; /* Mudar a cor de fundo ao passar o mouse */
+}
+.dark-mode #envia-button:hover {
+  background: #333; /* Mudar a cor de fundo ao passar o mouse */
+}
+
+#envia-button:focus {
+  outline: none; /* Remover o contorno ao focar */
+}
+
+.imagen {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.imagen p {
+  margin-left: 10px;
+}
+
+.imagen:hover {
+  background: #e4e7e8;
+}
+
+.imagen img {
+  width: 25px;
+}
+
+
+
+.imagen {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+  bottom: 10px;
+}
+
+/* Adicione margem superior ao elemento .imagen p */
+.imagen p {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.imagen:hover {
+  background: #e4e7e8;
+}
+
+.imagen img {
+  width: 25px;
+}
+
+.option-button {
+  border: 20px solid;
+  margin-right: 10px;
+}
+
+#button-options {
+  display: none;
+}
+
+#button-options.active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+
+
+
+  ::selection{
+    color: #fff;
+    background: #1cc7d0;
+  }
+  .following,
+  .followers {
+    margin-top: 10px; /* Adiciona uma margem superior */
+    padding: 10px; /* Adiciona espaçamento interno */
+    border-radius: 5px; /* Borda arredondada */
+    background-color: #f0f0f0; /* Cor de fundo */
+    text-align: center; /* Alinha o texto ao centro */
+  }
+  .right-aligned {
+    float: left;
+  }
+  .mini-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 20px;
+    width: 80%; /* Largura do mini-box */
+    max-width: 600px; /* Largura máxima do mini-box */
+    height: 80%; /* Altura do mini-box */
+    max-height: 400px; /* Altura máxima do mini-box */
+    overflow: auto; /* Adiciona uma barra de rolagem se o conteúdo for muito grande */
+    z-index: 9999; /* Garante que o mini-box seja exibido acima de outros elementos */
+    display: none; /* Inicialmente oculto */
+
+  }
+
+  .user-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .user-container .image-perfil2 {
+    margin-right: 10px; /* Espaçamento entre a imagem e o nome */
+  }
+  /* Estilo para o container de usuário */
+  .user-container_followers {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Adiciona uma borda inferior */
+  }
+
+  /* Estilo para a imagem de perfil */
+  .user-container_followers .perfil-image {
+    margin-right: 10px; /* Espaçamento entre a imagem e o nome */
+  }
+  /* Estilizando o botão "X" */
+  #close-button {
+    border: none;
+    border-radius: 60%; /* Torna o botão redondo */
+    color: #ffffff; /* Cor do texto branca, você pode ajustar conforme necessário */
+    cursor: pointer;
+    font-size: 12px; /* Ajuste conforme necessário */
+    margin-left: 65px; /* Adiciona um espaço entre o input e o botão, ajuste conforme necessário */
+    padding: 6px 10px; /* Ajuste conforme necessário para o tamanho do botão */
+    color: rgb(115, 197, 235); /* Cor da letra */
+    background-color: grey; /* Cor de fundo do botão */
+    border: none; /* Removendo a borda do botão */
+    cursor: pointer; /* Alterando o cursor ao passar sobre o botão */
+  }
+
+  #close-button2 {
+    border: none;
+    border-radius: 60%; /* Torna o botão redondo */
+    color: #ffffff; /* Cor do texto branca, você pode ajustar conforme necessário */
+    cursor: pointer;
+    font-size: 12px; /* Ajuste conforme necessário */
+    margin-left: 65px; /* Adiciona um espaço entre o input e o botão, ajuste conforme necessário */
+    padding: 6px 10px; /* Ajuste conforme necessário para o tamanho do botão */
+    color: rgb(115, 197, 235); /* Cor da letra */
+    background-color: grey; /* Cor de fundo do botão */
+    border: none; /* Removendo a borda do botão */
+    cursor: pointer; /* Alterando o cursor ao passar sobre o botão */
+  }
+
+
+
+
+  /* Estilo para o nome do usuário */
+  .user-container_followers .user-name_followers {
+    flex-grow: 1; /* Ocupa o restante do espaço disponível */
+    margin-right: 10px; /* Espaçamento entre o nome e a carteira */
+  }
+
+  /* Estilo para a carteira do usuário */
+  .user-container_followers .user-wallet_followers {
+    font-size: 10px; /* Define o tamanho da fonte */
+    color: #888; /* Define a cor do texto */
+  }
+
+
+
+  #search-input {
+    width: 200px; /* largura desejada */
+    height: 30px; /* altura desejada */
+    padding: 5px; /* espaçamento interno */
+    border: 1px solid #ccc; /* borda com cor cinza claro */
+    border-radius: 5px; /* borda arredondada */
+    font-size: 16px; /* tamanho da fonte */
+    outline: none; /* remove o contorno ao focar */
+  }
+
+  #search-input::placeholder {
+    color: #aaa; /* cor do texto de espaço reservado */
+  }
+
+  #search-input:focus {
+    border-color: #007bff; /* cor da borda ao focar */
+  }
+
+
+
+  #search-input2 {
+    width: 180px; /* largura desejada */
+    height: 30px; /* altura desejada */
+    padding: 5px; /* espaçamento interno */
+    border: 1px solid #ccc; /* borda com cor cinza claro */
+    border-radius: 5px; /* borda arredondada */
+    font-size: 16px; /* tamanho da fonte */
+    outline: none; /* remove o contorno ao focar */
+  }
+
+  #search-input2::placeholder {
+    color: #aaa; /* cor do texto de espaço reservado */
+  }
+
+  #search-input2:focus {
+    border-color: #007bff; /* cor da borda ao focar */
+  }
+
+
+  .wrapper {
+    height: 350px; /* Reduz a altura do card para 350px */
+    width: 280px; /* Reduz a largura do card para 280px */
+    position: fixed; /* Altera para position: fixed */
+    top: 30px; /* Define a distância fixa do topo da tela */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Centraliza horizontalmente */
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    z-index: 999; /* Define a ordem de empilhamento */
+    overflow-y: auto; /* Adiciona uma barra de rolagem vertical se necessário */
+    max-height: calc(100vh - 30px); /* Define a altura máxima para a visibilidade dos posts */
+  }
+
+
+  .wrapper .card {
+    position: absolute;
+    height: 70%; /* Reduz a altura para 70% */
+    width: 70%; /* Reduz a largura para 70% */
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
+    transform: translateY(0deg);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  }
+
+  /* Estilos para as divs "following" e "followers" */
+  .following,
+  .followers {
+    margin-top: 10px; /* Adiciona uma margem superior */
+    background-color: #f0f0f0; /* Cor de fundo */
+    padding: 10px; /* Espaçamento interno */
+    border-radius: 5px; /* Borda arredondada */
+    text-align: center; /* Alinhamento do texto */
+  }
+
+  .timeline-container2 {
+    overflow-y: auto; /* Adiciona uma barra de rolagem vertical se necessário */
+    max-height: 500px; /* Define a altura máxima para a visibilidade dos posts */
+  }
+
+
+  .wrapper:hover > .front-face{
+    transform: rotateY(-180deg);
+  }
+  .wrapper .card img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  .wrapper .back-face{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    transform: rotateY(180deg);
+  }
+  .wrapper:hover > .back-face{
+    transform: rotateY(0deg);
+  }
+  .wrapper .back-face img{
+    height: 150px;
+    width: 150px;
+    padding: 5px;
+    border-radius: 50%;
+    background: linear-gradient(375deg, #1cc7d0, #2ede98);
+  }
+  .wrapper .back-face .info{
+    text-align: center;
+  }
+  .back-face .info .title{
+    font-size: 30px;
+    font-weight: 500;
+  }
+  .back-face ul{
+    display: flex;
+  }
+  .back-face ul a{
+    display: block;
+    height: 40px;
+    width: 40px;
+    color: #fff;
+    text-align: center;
+    margin: 0 5px;
+    line-height: 38px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: linear-gradient(375deg, #1cc7d0, #2ede98);
+    transition: all 0.5s ease;
+  }
+  .back-face ul a:hover{
+    color: #1cc7d0;
+    border-color: #1cc7d0;
+    background: linear-gradient(375deg, transparent, transparent);
+  }
+
+  /*button return*/
+  #return-button {
+    position: absolute;
+    top: 10px; /* Ajuste a posição vertical conforme necessário */
+    right: 10px; /* Ajuste a posição horizontal conforme necessário */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    width: 80px; /* Ajuste a largura para 150px */
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  #return {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  #return-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(375deg, #1cc7d0, #2ede98);
+    z-index: -1;
+  }
+
+  /* Estilos para os posts na timeline */
+  hr {
+    border: none;
+    border-top: 1px solid rgb(189, 179, 179);
+    margin: 10px 15px;
+  }
+  .media-container {
+    margin-top: 10px; /* Adicione margem apenas à div image-post */
+  }
+
+  /* Estilos compartilhados para publicações e comentários */
+  .perfil-information,
+  .comment-information {
+    display: flex;
+    padding: 15px;
+    align-items: center;
+  }
+
+  .perfil-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  .author-post,
+  .author-comment {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+
+  #followButton,
+  #commentFollowButton {
+    margin-left: 15px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: rgb(33, 35, 41);
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+
+
+  /*minibox donatio */
+  /* Oculta o minibox inicialmente */
+  .hidden {
+    display: none;
+  }
+
+  /* Estilização do minibox */
+  #minibox {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white; /* Fundo branco */
+    max-width: 300px;
+    margin: 0 auto; /* Centraliza horizontalmente */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza verticalmente */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+  }
+
+  #maticAmount {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  #submitMaticButton {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #1cc7d0; /* Fundo azul */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #submitMaticButton:hover {
+    background-color: #17a2b8;
+  }
+  .dark-mode #followButton1 {
+    margin-left: 15px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: rgb(50, 72, 146);
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+  }
+  #followButton1 {
+    margin-left: 15px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: rgb(50, 72, 146);
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .author-post span:not(:last-child),
+  .author-comment span:not(:last-child) {
+    margin-right: 2px;
+    color: #090809;
+  }
+
+  .author-post i,
+  .author-comment i {
+    font-size: px; /* Certifique-se de definir o tamanho desejado */
+    color: #706062;
+    margin-top: 5px;
+  }
+
+  .icons-post,
+  .icons-comment {
+    margin-left: auto;
+  }
+
+  .text-post span {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #050404;
+  }
+  .text-post span {
+    display: block; /* Garantir que o span se comporte como bloco para que as quebras de linha funcionem */
+    width: 60ch; /* Limitar a largura a 50 caracteres */
+    word-wrap: break-word; /* Permitir que as palavras sejam quebradas se não couberem na linha */
+    white-space: pre-wrap; /* Preservar espaços em branco e permitir quebras de linha */
+  }
+
+  .reactions {
+    margin: 10px 0;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+  }
+
+  .reaction-count {
+    display: flex;
+    align-items: center;
+  }
+
+  .reactions span {
+    margin-left: 20px;
+    color: #65666a;
+  }
+  .publication {
+    max-width: 300%; /* Garante que a publicação use toda a largura disponível */
+    margin-bottom: 60px; /* Margem inferior menor para dispositivos móveis */
+    padding: 15px; /* Padding menor em dispositivos móveis */
+  }
+
+  /* Ajusta a largura máxima da cópia da publicação se necessário */
+  .publication-copy {
+    max-width: 100%; /* Ajusta a largura máxima para dispositivos móveis */
+    margin-bottom: 60px; /* Margem inferior para separação */
+    overflow: hidden; /* Esconde o conteúdo extra */
+  }
+
+  /* Adiciona margin-top apenas na primeira cópia */
+  .publication-copy:first-of-type {
+    margin-top: 300px; /* Ajusta margin-top para a primeira cópia em dispositivos móveis */
+  }
+
+
+  /* Estilo para o modo escuro */
+  .dark-mode .publication {
+    background-color: #333;
+    color: #fff; /* Texto branco no modo escuro */
+  }
+
+
+
+  .dark-mode .wrapper .card {
+    position: absolute;
+    height: 70%; /* Reduz a altura para 70% */
+    width: 70%; /* Reduz a largura para 70% */
+    padding: 5px;
+    background: #5c5b5b;
+    border-radius: 10px;
+    transform: translateY(0deg);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  }
+
+  /* Estilos para as divs "following" e "followers" */
+  .dark-mode .following,
+  .dark-mode .followers {
+    margin-top: 10px; /* Adiciona uma margem superior */
+    background-color: #333; /* Cor de fundo */
+    padding: 10px; /* Espaçamento interno */
+    border-radius: 5px; /* Borda arredondada */
+    text-align: center; /* Alinhamento do texto */
+  }
+
+
+  .like-comment-share {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Estilos para os botões 'like', 'comment' e 'share' */
+  .like-comment-share .button,
+  .like-comment-share .comment,
+  .like-comment-share .share-button {
+    display: flex;
+    align-items: center;
+    pointer-events: auto;
+    margin-right: 5px; /* Ajuste o espaçamento entre os botões */
+    padding-right: 5px; /* Ajuste o espaçamento interno */
+    border-right: 1px solid #ccc; /* Adiciona uma borda à direita */
+  }
+
+  .like-comment-share .button:last-child,
+  .like-comment-share .comment:last-child,
+  .like-comment-share .share-button:last-child {
+    margin-right: 0; /* Remove o espaçamento do último botão */
+    padding-right: 0; /* Remove o espaçamento interno do último botão */
+    border-right: none; /* Remove a borda do último botão */
+  }
+
+  .dark-mode .heart-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #e1f2fd;
+    border-radius: 5px;
+    color: #fdfdfd;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    position: relative;
+    width: 200px; /* Ajuste a largura conforme necessário */
+    padding: 10px 20px; /* Ajuste o padding comum */
+  }
+  .heart-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    color: #fdfdfd;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    position: relative;
+    width: 200px; /* Ajuste a largura conforme necessário */
+    padding: 10px 20px; /* Ajuste o padding comum */
+    margin-right: 200px; /* Ajuste o valor conforme necessário para mover para a direita */
+  }
+
+
+  .heart-btn .icon {
+    width: 35px; /* Defina o tamanho desejado para a imagem */
+    height: auto; /* Mantém a proporção da imagem */
+    /* Deixe a posição absoluta e ajuste o valor conforme necessário */
+    position: absolute;
+    left: 5px;
+  }
+
+  .heart-btn .text {
+    white-space: nowrap;
+    /* Ajuste o padding conforme necessário */
+    padding-left: 60px; /* Ajuste o valor específico */
+    font-weight: bold; /* Adiciona negrito apenas ao texto */
+    color: black; /* Altere a cor do texto para preto */
+  }
+
+
+  .dark-mode .heart-btn:hover {
+    background-color: #5c5b5b;
+    color: white;
+  }
+  .heart-btn:hover {
+    background-color: #3498db;
+    color: white;
+  }
+
+  .heart-btn.clicked {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+  }
+
+
+  /* share CSS */
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+  .share-button {
+    width: 200px; /* Largura do botão */
+    height: 40px; /* Altura do botão */
+    padding: 10px; /* Espaçamento interno */
+    border-radius: 5px; /* Borda arredondada */
+    background-color: #f0f0f0; /* Cor de fundo */
+    text-align: center; /* Alinha o texto ao centro */
+    border: 2px solid #3498db; /* Borda sólida */
+    cursor: pointer; /* Cursor ao passar por cima */
+    font-size: 16px; /* Tamanho da fonte */
+    margin-left: 5px; /* Margem à esquerda */
+    transition: .3s linear; /* Transição suave */
+    display: flex; /* Use flexbox para centralizar verticalmente */
+    align-items: center; /* Centralize verticalmente */
+    justify-content: center; /* Centralize horizontalmente */
+    line-height: 40px; /* Igual à altura do botão para centralizar verticalmente */
+  }
+  .new-share-button {
+    width: 150px; /* Ajuste conforme necessário */
+    height: 40px;
+    background: #fff;
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: .3s linear;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 1px;
+    margin-left: 5px;
+
+  }
+
+  .dark-mode .share-button {
+    width: 200px; /* Ajuste conforme necessário */
+    height: 40px;
+    background: #333;
+    border: 2px solid #e1f2fd;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: .3s linear;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 1px;
+    margin-left: 5px;
+  }
+  .share-button img {
+    width: 20px; /* Largura da imagem */
+    margin-right: 10px; /* Espaçamento entre a imagem e o texto */
+  }
+
+
+  .share-button:hover {
+    transform: scale(1.1);
+  }
+
+  .dark-mode .share-button span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 50px); /* Largura total menos a largura da imagem e o espaço */
+    height: 100%;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    z-index: 1;
+    transition: .6s linear;
+    border-radius: 10px;
+    margin-right: 30px; /* Ajuste a margem esquerda conforme necessário */
+  }
+
+  /*comment*/
+
+
+  .dark-mode
+  .botao-comment {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #e1f2fd;
+    border-radius: 5px;
+    color: #e1f2fd;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-left: -1px !important; /* Ajuste o valor negativo para mover mais para a direita */
+    margin-top: 1px; /* Ajuste o valor conforme necessário para mover para baixo */
+  }
+
+
+  .botao-comment {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    color: #3498db;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-left: -200px !important; /* Ajuste o valor negativo para mover mais para a direita */
+    margin-top: 1px; /* Ajuste o valor conforme necessário para mover para baixo */
+  }
+
+  .botao-comment:hover {
+    background-color: #3498db;
+    color: #fff;
+  }
+
+  .dark-mode
+  .donate {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #e1f2fd;
+    border-radius: 5px;
+    color: #e1f2fd;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-left: -1px !important; /* Ajuste o valor negativo para mover mais para a direita */
+    margin-top: 1px; /* Ajuste o valor conforme necessário para mover para baixo */
+  }
+
+
+  .donate {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    color: #3498db;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-left: -120px; /* Ajuste o valor negativo para mover mais para a direita */
+    margin-top: 1px; /* Ajuste o valor conforme necessário para mover para baixo */
+  }
+
+  .donate:hover {
+    background-color: #3498db;
+    color: #fff;
+  }
+
+  /*buttom back*/
+
+  #backButtonContainer {
+    display: none;
+    position: absolute; /* Torna a posição absoluta em relação ao contêiner pai */
+    top: 25px; /* Ajusta a distância do topo conforme necessário */
+    left: 320px; /* Ajusta a distância da esquerda conforme necessário */
+  }
+
+  #backButton {
+    color: #fff; /* Cor do texto do botão */
+    padding: 5px; /* Reduza o padding para que o botão abranja apenas a imagem */
+    border: none; /* Sem borda */
+    border-radius: 80%; /* Borda arredondada para criar um botão redondo */
+    cursor: pointer; /* Altera o cursor ao passar por cima */
+    background: none; /* Remove o fundo do botão */
+    text-align: center; /* Centraliza o conteúdo dentro do botão */
+    transition: background 0.3s ease; /* Adiciona uma transição suave para a mudança de cor do fundo */
+  }
+
+  #backButton img {
+    width: 20px; /* Aumenta a largura da imagem de seta */
+    height: 20px; /* Aumenta a altura da imagem de seta */
+  }
+
+  .back-button-text {
+    font-weight: normal; /* Define o peso da fonte de volta ao normal */
+    font-size: 20px; /* Ajusta o tamanho da fonte */
+    margin-left: 10px; /* Ajusta a margem à esquerda do nome "Post" */
+    transition: font-weight 0.3s ease, font-size 0.3s ease, margin-left 0.3s ease; /* Adiciona uma transição suave */
+  }
+
+  #backButton:hover {
+    background: #ddd; /* Cor de fundo cinza no hover */
+  }
+
+  #backButton:hover .back-button-text {
+    font-weight: bold; /* Negrito para a palavra "Post" no hover */
+    margin-left: 12px; /* Ajusta a margem à esquerda no hover */
+  }
+
+  #comment-container.comment-container.with-video.post {
+    background: #db5e5e;
+  }
+
+
+  .media-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    text-align: center;
+    height: 100%; /* Altere para altura máxima */
+    overflow: hidden; /* Esconda o conteúdo que excede a altura máxima */
+  }
+
+  .media-preview {
+    max-width: 100%; /* Adicione para preencher o espaço horizontal */
+    max-height: 100%; /* Altere para 100% para caber no contêiner */
+    object-fit: contain; /* Mantenha a proporção e ajuste o conteúdo */
+    display: none;
+  }
+
+  /* Exiba a mídia quando um arquivo for selecionado */
+  .media-preview[src] {
+    display: block;
+  }
+  /* Modo escuro para hr */
+  .dark-mode .post hr,
+  .dark-mode .comment-container.with-video hr {
+    border-top: 0.5px solid #666; /* Cor do hr para o modo escuro */
+  }
+  .post,
+  .comment-container.with-video {
+    position: relative;
+    border-radius: 10px;
+    background: #fff;
+    margin: 15px 0;
+  }
+  .post hr,
+  .comment-container.with-video hr {
+    border: none;
+    border-top: 0.5px solid rgb(107, 105, 105);
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  /* Modo escuro */
+  .dark-mode .post,
+  .dark-mode .comment-container.with-video {
+    background: #5c5b5b; /* Cor de fundo para o modo escuro */
+    color: #fff; /* Cor do texto para o modo escuro */
+  }
+
+  .dark-mode #followButton,
+  #commentFollowButton {
+    margin-left: 15px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: rgb(33, 35, 41);
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .texto,
+  .comment-container.with-video .texto {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .dark-mode #post-input,
+  .dark-mode #comment-input {
+    flex-grow: 60;
+    border-radius: 10px;
+    background: #5c5b5b;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    outline: 0;
+    resize: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    display: block;
+    line-height: 1.5;
+    height: 20px; /* Altura inicial */
+    min-height: 10px; /* Altura mínima */
+    max-height: 330px; /* Altura máxima permitida */
+    overflow-y: hidden; /* Remover a barra de rolagem vertical */
+    overflow-x: hidden; /* Remover a barra de rolagem horizontal */
+    transition: height 0.3s, padding 0.3s; /* Adicione uma transição suave */
+  }
+  #post-input,
+  #comment-input {
+    flex-grow: 60;
+    border-radius: 10px;
+    background: #f1f2f4;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    outline: 0;
+    resize: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    display: block;
+    line-height: 1.5;
+    height: 20px; /* Altura inicial */
+    min-height: 10px; /* Altura mínima */
+    max-height: 330px; /* Altura máxima permitida */
+    overflow-y: hidden; /* Remover a barra de rolagem vertical */
+    overflow-x: hidden; /* Remover a barra de rolagem horizontal */
+    transition: height 0.3s, padding 0.3s; /* Adicione uma transição suave */
+  }
+
+  #post-input::placeholder,
+  #comment-input::placeholder {
+    color: #ccc;
+  }
+  .custom-icon {
+    color: #e6f4f8; /* Cor do ícone */
+    font-size: 40px; /* Tamanho do ícone */
+    margin-right: 8px; /* Margem à direita para espaçamento */
+  }
+
+
+  .texto img,
+  .comment-container.with-video .texto img {
+    width: 40px;
+    height: 40px; /* Certifique-se de definir a altura igual à largura */
+    border-radius: 50%;
+    margin: 20px;
+  }
+  .botones-texto {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centralizar horizontalmente */
+  }
+
+  .texto {
+    flex-grow: 1;
+  }
+
+  .dark-mode #envia-button {
+    width: 30%;
+    height: 30%;
+    
+    border: none;
+    border-radius: 25px;
+    background-color: rgb(104, 106, 112);
+
+    color: white; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    cursor: pointer;
+    margin-left: 60px; /* Margem à esquerda */
+  }
+  #envia-button {
+    width: 30%;
+    height: 30%;
+    
+    border: none;
+    border-radius: 25px;
+    background-color: rgb(76, 111, 224);
+
+    color: white; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    cursor: pointer;
+    margin-left: 60px; /* Margem à esquerda */
+  }
+
+  #envia-button:hover {
+    background: #0066cc; /* Mudar a cor de fundo ao passar o mouse */
+  }
+  .dark-mode #envia-button:hover {
+    background: #333; /* Mudar a cor de fundo ao passar o mouse */
+  }
+
+  #envia-button:focus {
+    outline: none; /* Remover o contorno ao focar */
+  }
+
+  .imagen {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+
+  .imagen p {
+    margin-left: 10px;
+  }
+
+  .imagen:hover {
+    background: #e4e7e8;
+  }
+
+  .imagen img {
+    width: 25px;
+  }
+
+
+
+  .imagen {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    bottom: 10px;
+  }
+
+  /* Adicione margem superior ao elemento .imagen p */
+  .imagen p {
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+
+  .imagen:hover {
+    background: #e4e7e8;
+  }
+
+  .imagen img {
+    width: 25px;
+  }
+
+  .option-button {
+    border: 20px solid;
+    margin-right: 10px;
+  }
+
+  #button-options {
+    display: none;
+  }
+
+  #button-options.active {
+    display: block;
+}
+}

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cadastro</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .container {
+      width: 300px;
+      text-align: center;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin: -40px auto 80px; /* Valor negativo para margin-top para subir o elemento um pouco mais para cima */
+      margin-left: 28%; /* Centraliza horizontalmente, mas precisa de ajuste de tradução */
+      background-color: #dddddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .input-field {
+      width: 100%;
+      border: 2px solid #3498db; /* Bordas mais destacadas e cor #3498db */
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 10px; /* Aumentando o valor do border-radius para tornar as bordas mais arredondadas */
+    }
+    .input-field:focus {
+      outline: none;
+    }
+    .btn-container {
+      display: flex;
+      justify-content: center;
+    }
+    .btn {
+      background-color: #305275;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+    .error-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #808080; /* Alterado para cinza */
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;
+    }
+    .warning-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #808080; /* Alterado para cinza */
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;
+      cursor: pointer; /* Adiciona cursor pointer */
+    }
+  </style>
+</head>
+<body id="cadastro-page">
+  <form id="profile-form">
+    <div class="profile-pic" id="profile-pic">
+      <img id="profile-img" src="" alt="">
+    </div>
+    <input id="input-name" name="name" class="input-field" type="text" placeholder="Profile Name" required>
+    <input id="input-bio" name="bio" class="input-field" type="text" placeholder="Description" required>
+        <div class="btn-container">
+      <label for="input-file" class="btn">upload photo</label>
+      <input id="input-file" type="file" style="display: none;" required>
+      <button type="button" id="btn-salvar" class="btn">register</button>
+    </div>
+    <div id="error-container" class="error-message">A user with this name already exists.</div>
+    <div id="warning-container" class="warning-message">After clicking Save, nothing can be changed.</div>
+  </form>
+  
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const btnSave = document.getElementById('btn-salvar');
+    const profileImg = document.getElementById('profile-img');
+    const inputFile = document.getElementById('input-file');
+    const errorContainer = document.getElementById('error-container');
+    const warningContainer = document.getElementById('warning-container');
+
+    // Obter o endereço da carteira do usuário da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const walletAddress = urlParams.get('walletAddress');
+    console.log('Endereço da carteira do usuário:', walletAddress);
+
+    inputFile.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+
+      // Verifica o tipo de arquivo
+      const validTypes = ['image/jpeg', 'image/png'];
+      if (!validTypes.includes(file.type)) {
+        errorContainer.innerText = 'Por favor, selecione uma imagem JPEG ou PNG.';
+        errorContainer.style.display = 'block';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        profileImg.src = reader.result;
+      };
+    });
+
+    btnSave.addEventListener('click', async (event) => {
+      event.preventDefault(); // Impede o envio do formulário padrão
+
+      const inputName = document.getElementById('input-name').value;
+      const inputDescription = document.getElementById('input-bio').value;
+      const profileImgSrc = profileImg.src;
+
+      if (!inputName || !walletAddress) {
+        console.error('Endereço da carteira e nome são obrigatórios.');
+        errorContainer.innerText = 'Endereço da carteira e nome são obrigatórios.';
+        errorContainer.style.display = 'block';
+        return;
+      }
+
+      try {
+        // Solicitar endereço da carteira do MetaMask
+        const [selectedAddress] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+        if (selectedAddress.toLowerCase() !== walletAddress.toLowerCase()) {
+          errorContainer.innerText = 'O endereço da carteira não corresponde.';
+          errorContainer.style.display = 'block';
+          return;
+        }
+
+        const userData = {
+          name: inputName,
+          walletAddress,
+        };
+
+        if (inputDescription) {
+          userData.bio = inputDescription;
+        }
+        if (profileImgSrc) {
+          userData.profileImgSrc = profileImgSrc;
+        }
+
+        const result = await axios.post('https://apifralishub.online/api/cadastrarUsuario', userData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        console.log(result.data);
+        window.location.href = `principal/index.html?walletAddress=${walletAddress}`;
+      } catch (error) {
+        console.error(error);
+
+        if (error.response && error.response.data && error.response.data.message === 'Já existe um usuário com esse nome.') {
+          errorContainer.innerText = 'Erro: ' + error.response.data.message;
+          errorContainer.style.display = 'block';
+        } else {
+          errorContainer.innerText = 'Erro ao cadastrar usuário. Tente novamente.';
+          errorContainer.style.display = 'block';
+        }
+      }
+    });
+
+    // Adiciona evento de clique para ocultar a mensagem de aviso
+    warningContainer.addEventListener('click', () => {
+      warningContainer.style.display = 'none';
+    });
+
+    // Adiciona evento de clique para remover a mensagem de erro
+    document.addEventListener('click', (event) => {
+      if (event.target !== errorContainer) {
+        errorContainer.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

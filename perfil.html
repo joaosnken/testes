@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <link rel="icon" href="principal/images/logo DecentralConnect.png" type="image/png">
+
+      <title></title>
+      <link rel="stylesheet" href="card.css">
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script src="https://unpkg.com/web3@1.5.3/dist/web3.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/ethereumjs-util@6.1.0/dist/ethereumjs-util.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/web3@1.3.5/dist/web3.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@luckyunicorn/web3modal@1.9.6/dist/index.min.js"></script>
+      <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.4.0"></script>
+  
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+      <script src="perfil.js"></script>
+
+   </head>
+   <body>
+        <div class="wrapper">
+            <div class="card front-face" id="front-face">
+                <img id="front-image" src="">
+            </div>
+        
+            <div class="card back-face" id="back-face">
+                <div class="info name bio">
+                    <div class="follow">
+                        <button id="followButton1" onclick="buttonClick()">Follow</button>
+                    </div>
+                    <div class="title"></div>
+                    <p></p>
+                    <!-- Divs para Following e Followers dentro da wrapper -->
+                    <div class="following" id="following-box">Following <span id="following-count"></span></div>
+                    <div class="followers" id="followers-box">Followers <span id="followers-count"></span></div>
+                    <div class="share-button">
+                        <span>donation!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mini-box" id="mini-box">
+                <button id="close-button2">X</button>
+                <input type="text" id="search-input" placeholder="Digite aqui...">
+                <div id="following-section">
+                    <span class="user-name"></span>
+                    <div class="image-perfil2">
+                        <img id="perfil2-image" class="perfil-image">
+                    </div>                    
+                    <span class="user-wallet"></span>
+                </div>
+            </div>
+            <div class="mini-box" id="mini-box2">
+                <button id="close-button">X</button>
+                <input type="text" id="search-input2" placeholder="Digite aqui...">
+                <div id="followers">
+                    <span class="user-name"></span>
+                    <div class="image-perfil2">
+                        <img id="perfil2-image" class="perfil-image">
+                    </div>                    
+                    <span class="user-wallet"></span>
+                </div>
+            </div>
+            
+                        
+              
+        </div>
+    
+      <button id="return-button">
+        <div id="return">
+            <i class="fas fa-arrow-right custom-icon"></i>
+          </div>
+    </button>
+      <div id="minibox" class="hidden">
+        <label for="maticAmount">Matic quantity:</label>
+        <input type="number" id="maticAmount" name="maticAmount" placeholder="Enter quantity" max="100">
+        <button id="submitMaticButton">donate</button>
+        </div>
+        
+      <!-- Publicaicones ya posteadsa-->
+      <div class="publication" style="display: none;">
+         <div class="perfil-information">       
+             <div class="image-perfil">
+                 <img id="perfil-image" class="perfil-image">
+             </div>
+
+             <div class="author-post">
+                 <span></span>
+                 <div class="wallet-info">
+                     <span></span>
+                 </div>
+             </div>
+                <div class="follow" style="display: none;">
+                    <button id="followButton" onclick="buttonClick()">Follow</button>
+                </div>
+
+             <div class="icons-post">
+                 <i class="fa-solid fa-ellipsis"></i>
+             </div>
+         </div>
+
+         <div class="text-post">
+             <span></span>
+         </div>
+
+         <div class="image-post" id="image-post">
+             <!-- Aqui é onde a imagem ou vídeo será exibido -->
+             <span></span>
+         </div>
+         
+           
+
+         <div class="reactions">
+           
+
+            
+            <div class="comments-share">
+                <span></span>
+            </div>
+         </div>
+
+
+         <div class="like-comment-share">
+            <div class="button" id="likeButton">
+                <div class="like-button">
+                    <button class="heart-btn">
+                        <img src="principal/images/like 2.png" alt="Ícone de Like" class="icon">
+                        <span class="text">Like (<span class="likeCounter"></span>)</span>
+                    </button>
+                </div>
+            </div>
+            <div class="comment">
+                <i class="fa-regular fa-message"></i>
+                <button class="botao-comment">comment</button>
+            </div>
+               
+
+            <div id="comment-container" class="comment-container with-video" style="display: none;"> <!-- Alterado o nome da classe para comment-container -->
+                <div class="texto">
+                    <div id="profile-image-container">
+                        <img src="" alt="" id="profile-image2">
+                     </div>
+                    <textarea id="post-input" placeholder="Type something..." maxlength="500" data-maxlinelength="49"></textarea>
+                    <button id="envia-button" class="envia-button">Post</button>
+    
+                </div>
+            </div>
+            <div class="donate" style="display: none;">
+                <button class="donate">donate</button>
+            </div>
+             <div id="backButtonContainer" style="display: none;">
+                <button id="backButton" class="back-button">
+                  <img src="principal/images/back-buttom.png" alt="Seta">
+                </button>
+                <strong class="back-button-text">Post</strong>
+            </div>
+                                 
+
+
+        </div>
+        <div id="comment-container" class="comment-container with-video" style="display: none;"> <!-- Alterado o nome da classe para comment-container -->
+            <div class="texto">
+                <div id="profile-image-container">
+                    <img src="" alt="" id="profile-image2">
+                </div>
+                <textarea id="post-input" placeholder="Type something..." maxlength="500" data-maxlinelength="49"></textarea>
+                <button id="envia-button" class="envia-button">Post</button>
+
+            </div>
+        </div>
+
+      </div>
+   </body>
+</html>

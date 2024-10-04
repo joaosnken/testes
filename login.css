@@ -1,0 +1,86 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #fff, #3498db);
+    margin: 0;
+}
+
+.title {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.title h1 {
+    font-size: 48px;
+    background: linear-gradient(90deg, #1cc7d0, #007bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    margin: 0;
+}
+.logo {
+    margin-bottom: 10px; /* Reduzindo o espaço abaixo da imagem */
+    text-align: center;
+    position: relative;
+    font-family: Arial, sans-serif; /* Adicionando a fonte */
+}
+
+.logo img {
+    width: 200px; /* Ajuste o tamanho conforme necessário */
+    height: auto;
+    border-radius: 20px; /* Deixando a imagem mais arredondada */
+    
+}
+
+.sunny-text {
+    color: #000000; /* Alterando a cor do texto para preto */
+    font-size: 24px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adicionando sombra ao texto */
+    margin-top: -50px; /* Subindo o bloco de texto */
+}
+
+.sunny-text h1,
+.sunny-text p {
+    margin: 0; /* Removendo margens */
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #1cc7d0, #007bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    margin-top: 0px; /* Subindo a frase */
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Reduzindo o espaço abaixo do botão */
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centralizando o conteúdo do botão */
+    padding: 10px 40px; /* Aumentando a largura do botão */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 30px; /* Tornando o botão mais arredondado */
+    cursor: pointer;
+}
+
+.button img {
+    width: 30px; /* Ajuste o tamanho conforme necessário */
+    margin-right: 20px; /* Aumentando a margem direita para mover a imagem para a esquerda */
+    margin-left: -20%; /* Centraliza horizontalmente, mas precisa de ajuste de tradução */
+
+    border-radius: 10px; /* Deixando a imagem do botão mais arredondada */
+}
